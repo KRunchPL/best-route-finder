@@ -1,0 +1,15 @@
+[package]
+name = "py-best-route-finder"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "best_route_finder"
+crate-type = ["cdylib"]
+
+[dependencies]
+best_route_finder = { path = "../best-route-finder" }
+
+[dependencies.pyo3]
+version = "0.14.5"
+features = ["extension-module"]
