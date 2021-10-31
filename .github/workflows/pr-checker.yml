@@ -1,4 +1,4 @@
-name: Rust
+name: PR checker
 
 on:
   push:
@@ -8,15 +8,18 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  RUSTV: stable
 
 jobs:
-  build:
-
+  build_and_test:
+    name: Build and run tests on stable Rust
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
+    - name: Install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            override: true
     - name: Build
       run: cargo build --verbose
     - name: Run tests
