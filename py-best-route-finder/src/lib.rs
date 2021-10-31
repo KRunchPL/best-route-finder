@@ -21,19 +21,19 @@ macro_rules! extract_attribute {
 }
 
 #[pyclass]
-struct RoutingTableTree {
+struct IPv4RoutingTableTree {
     _routing_table: _RoutingTableTree,
 }
 
 #[pymethods]
-impl RoutingTableTree {
+impl IPv4RoutingTableTree {
     #[new]
     fn new() -> Self {
-        RoutingTableTree { _routing_table: _RoutingTableTree::new() }
+        IPv4RoutingTableTree { _routing_table: _RoutingTableTree::new() }
     }
     #[staticmethod]
     fn from_mapping(entries: &PyList) -> PyResult<Self> {
-        let mut tree = RoutingTableTree { _routing_table: _RoutingTableTree::new() };
+        let mut tree = IPv4RoutingTableTree { _routing_table: _RoutingTableTree::new() };
         for entry in entries {
             tree._routing_table.insert(
                 &extract_attribute!(entry, u32, "subnet", "network_address", "_ip"),
@@ -66,6 +66,6 @@ impl RoutingTableTree {
 
 #[pymodule]
 fn best_route_finder(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_class::<RoutingTableTree>()?;
+    m.add_class::<IPv4RoutingTableTree>()?;
     Ok(())
 }
