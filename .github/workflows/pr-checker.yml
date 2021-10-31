@@ -1,8 +1,7 @@
 name: PR checker
 
 on:
-  push:
-    branches: [ master ]
+  push: []
   pull_request:
     branches: [ master ]
 
