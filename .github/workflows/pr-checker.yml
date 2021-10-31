@@ -1,0 +1,27 @@
+name: PR checker
+
+on: [push, pull_request]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build_and_test:
+    name: Build and run tests on stable Rust
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install 'stable' Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+          toolchain: stable
+          override: true
+    - name: Build as a release
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --release
+    - name: Run tests
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
